@@ -6,7 +6,7 @@ RUN export JAVA_DIR=$(find /opt/zing -maxdepth 1 -type d -name "zing*-jre*") && 
     cd $JAVA_DIR && \
     tar -cf /tmp/java.tar .
 
-FROM almalinux:9.7 AS final
+FROM almalinux:10.1 AS final
 
 RUN dnf update -y && dnf clean all
 
