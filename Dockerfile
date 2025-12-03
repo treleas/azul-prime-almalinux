@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1.4
+# syntax=docker/dockerfile:1.20
 FROM azul/prime-centos:21.0.8.0.101-1-25.10.0.0 AS azul-extractor
 
 RUN export JAVA_DIR=$(find /opt/zing -maxdepth 1 -type d -name "zing*-jre*") && \
