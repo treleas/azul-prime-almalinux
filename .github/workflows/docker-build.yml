@@ -16,6 +16,7 @@ jobs:
         run: echo "sha=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
 
   build-amd64:
+    needs: set-vars
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -34,12 +35,13 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/${{ github.repository }}:amd64
+          tags: ghcr.io/${{ github.repository }}:amd64,ghcr.io/${{ github.repository }}:${{ needs.set-vars.outputs.short_sha }}-amd64
           platforms: linux/amd64
           build-args: SOURCE_TAG=
           file: ./Dockerfile
 
   build-arm64:
+    needs: set-vars
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -58,13 +60,13 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/${{ github.repository }}:arm64
+          tags: ghcr.io/${{ github.repository }}:arm64,ghcr.io/${{ github.repository }}:${{ needs.set-vars.outputs.short_sha }}-arm64
           platforms: linux/arm64/v8
           build-args: SOURCE_TAG=-arm64
           file: ./Dockerfile
 
   create-manifest:
-    needs: [build-amd64, build-arm64]
+    needs: [build-amd64, build-arm64, set-vars]
     runs-on: ubuntu-latest
     permissions:
       packages: write
