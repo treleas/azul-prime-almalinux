@@ -84,4 +84,4 @@ jobs:
           SHA=${{ needs.set-vars.outputs.short_sha }}
           
           docker buildx imagetools create --append -t $REPO_URL:latest $REPO_URL:amd64 $REPO_URL:arm64
-          docker buildx imagetools create --append -t $REPO_URL:$SHA $REPO_URL:$SHA-amd64 $REPO_URL:$SHA-arm64
+          docker buildx imagetools create -t $REPO_URL:$SHA $REPO_URL:$SHA-amd64 $REPO_URL:$SHA-arm64
