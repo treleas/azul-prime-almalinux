@@ -39,14 +39,14 @@ jobs:
             JAVA_DIST_VERSION=${{ matrix.java_version }}
             ARCH_SUFFIX=${{ matrix.arch_suffix }}
           file: ./Dockerfile
-        strategy:
-          matrix:
-            java_version: ${{ fromJson(needs.build-specific-images.outputs.java_versions_json) }}
-            include:
-              - platform_arch: amd64
-                arch_suffix: ""
-              - platform_arch: arm64/v8
-                arch_suffix: "-arm64"
+    strategy:
+      matrix:
+        java_version: ${{ fromJson(needs.build-specific-images.outputs.java_versions_json) }}
+        include:
+          - platform_arch: amd64
+            arch_suffix: ""
+          - platform_arch: arm64/v8
+            arch_suffix: "-arm64"
 
 
   create-manifests:
