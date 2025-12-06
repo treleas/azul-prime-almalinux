@@ -26,7 +26,7 @@ jobs:
           context: .
           push: true
           tags: ghcr.io/${{ github.repository }}:${{ matrix.java_version }}${{ matrix.arch_suffix }}
-          platforms: linux/${{ matrix.platform_arch }}
+          platforms: ${{ matrix.platform_arch }}
           build-args: |
             JAVA_DIST_VERSION=${{ matrix.java_version }}
             ARCH_SUFFIX=${{ matrix.arch_suffix }}
@@ -39,9 +39,9 @@ jobs:
           - "17.0.16.0.101-1-25.10.0.0"
           - "21.0.8.0.101-1-25.10.0.0"
         include:
-          - platform_arch: amd64
+          - platform_arch: linux/amd64
             arch_suffix: ""
-          - platform_arch: arm64/v8
+          - platform_arch: linux/arm64/v8
             arch_suffix: "-arm64"
 
 
