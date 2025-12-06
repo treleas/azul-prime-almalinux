@@ -38,11 +38,9 @@ jobs:
           - "11.0.28.0.101-1-25.10.0.0"
           - "17.0.16.0.101-1-25.10.0.0"
           - "21.0.8.0.101-1-25.10.0.0"
-        include:
-          - platform_arch: linux/amd64
-            arch_suffix: ""
-          - platform_arch: linux/arm64/v8
-            arch_suffix: "-arm64"
+        architecture:
+          - { platform_arch: "linux/amd64", arch_suffix: "" }
+          - { platform_arch: "linux/arm64/v8", arch_suffix: "-arm64" }
 
 
   create-manifests:
