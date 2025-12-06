@@ -5,12 +5,6 @@ on:
     branches:
       - main
 
-env:
-  JAVA_8_VERSION: "1.8.0-471-4-25.10.0.0"
-  JAVA_11_VERSION: "11.0.28.0.101-1-25.10.0.0"
-  JAVA_17_VERSION: "17.0.16.0.101-1-25.10.0.0"
-  JAVA_21_VERSION: "21.0.8.0.101-1-25.10.0.0"
-
 jobs:
   build-specific-images:
     runs-on: ubuntu-latest
@@ -40,10 +34,10 @@ jobs:
     strategy:
       matrix:
         java_version:
-          - ${{ env.JAVA_8_VERSION }}
-          - ${{ env.JAVA_11_VERSION }}
-          - ${{ env.JAVA_17_VERSION }}
-          - ${{ env.JAVA_21_VERSION }}
+          - "1.8.0-471-4-25.10.0.0"
+          - "11.0.28.0.101-1-25.10.0.0"
+          - "17.0.16.0.101-1-25.10.0.0"
+          - "21.0.8.0.101-1-25.10.0.0"
         include:
           - platform_arch: amd64
             arch_suffix: ""
@@ -73,8 +67,8 @@ jobs:
         run: |
           REPO_URL=ghcr.io/${{ github.repository }}
           SHA=${{ steps.commit.outputs.sha }}
-          LATEST="${{ env.JAVA_21_VERSION }}"
-          JAVA_VERSIONS=("${{ env.JAVA_8_VERSION }}" "${{ env.JAVA_11_VERSION }}" "${{ env.JAVA_17_VERSION }}" "$LATEST")
+          LATEST="21.0.8.0.101-1-25.10.0.0"
+          JAVA_VERSIONS=("1.8.0-471-4-25.10.0.0" "11.0.28.0.101-1-25.10.0.0" "17.0.16.0.101-1-25.10.0.0" "$LATEST")
 
           for VERSION in "${JAVA_VERSIONS[@]}"; do
             echo "Creating manifest for $VERSION"
