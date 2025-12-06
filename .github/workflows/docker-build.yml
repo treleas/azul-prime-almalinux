@@ -17,8 +17,6 @@ jobs:
     permissions:
       contents: read
       packages: write
-    outputs:
-      java_versions_json: "['${{ env.JAVA_8_VERSION }}', '${{ env.JAVA_11_VERSION }}', '${{ env.JAVA_17_VERSION }}', '${{ env.JAVA_21_VERSION }}']"
     steps:
       - uses: actions/checkout@v6
       - uses: docker/login-action@v3
@@ -41,7 +39,11 @@ jobs:
           file: ./Dockerfile
     strategy:
       matrix:
-        java_version: ${{ fromJson(needs.build-specific-images.outputs.java_versions_json) }}
+        java_version:
+          - ${{ env.JAVA_8_VERSION }}
+          - ${{ env.JAVA_11_VERSION }}
+          - ${{ env.JAVA_17_VERSION }}
+          - ${{ env.JAVA_21_VERSION }}
         include:
           - platform_arch: amd64
             arch_suffix: ""
@@ -65,12 +67,12 @@ jobs:
 
       - name: Get short commit SHA
         id: commit
-        run: echo "::set-output name=sha::$(git rev-parse --short HEAD)"
+        run: echo "sha=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
 
       - name: Create and push manifest list
         run: |
           REPO_URL=ghcr.io/${{ github.repository }}
-          SHA=${{ steps.commit.outputs.sha }} # Используем SHA
+          SHA=${{ steps.commit.outputs.sha }}
           LATEST="${{ env.JAVA_21_VERSION }}"
           JAVA_VERSIONS=("${{ env.JAVA_8_VERSION }}" "${{ env.JAVA_11_VERSION }}" "${{ env.JAVA_17_VERSION }}" "$LATEST")
 
