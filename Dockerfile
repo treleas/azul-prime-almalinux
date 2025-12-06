@@ -1,7 +1,8 @@
 # syntax=docker/dockerfile:1.20
-ARG SOURCE_TAG
+ARG JAVA_DIST_VERSION
+ARG ARCH_SUFFIX=""
 
-FROM azul/prime-centos:21.0.8.0.101-1-25.10.0.0${SOURCE_TAG:-} AS azul-extractor
+FROM azul/prime-centos:${JAVA_DIST_VERSION}${ARCH_SUFFIX} AS azul-extractor
 
 RUN export JAVA_DIR=$(find /opt/zing -maxdepth 1 -type d -name "zing*-jre*") && \
     echo "Archiving Java from: $JAVA_DIR" && \
