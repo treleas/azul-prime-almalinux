@@ -2,7 +2,7 @@
 ARG JAVA_DIST_VERSION
 ARG ARCH_SUFFIX=""
 
-FROM azul/prime-centos:${JAVA_DIST_VERSION}${ARCH_SUFFIX} AS azul-extractor
+FROM azul/prime:${JAVA_DIST_VERSION}${ARCH_SUFFIX} AS azul-extractor
 
 RUN export JAVA_DIR=$(find /opt/zing -maxdepth 1 -type d -name "zing*-jre*") && \
     echo "Archiving Java from: $JAVA_DIR" && \
