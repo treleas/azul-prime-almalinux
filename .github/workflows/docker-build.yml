@@ -34,10 +34,10 @@ jobs:
     strategy:
       matrix:
         java_version:
-          - "1.8.0-471-4-25.10.0.0"
-          - "11.0.28.0.101-1-25.10.0.0"
-          - "17.0.16.0.101-1-25.10.0.0"
-          - "21.0.8.0.101-1-25.10.0.0"
+          - "1.8.0-472-3-25.12.0.0"
+          - "11.0.29-7-25.12.0.0"
+          - "17.0.17-10-25.12.0.0"
+          - "21.0.9-10-25.12.0.0"
         architecture:
           - { platform_arch: "linux/amd64", arch_suffix: "" }
           - { platform_arch: "linux/arm64/v8", arch_suffix: "-arm64" }
@@ -65,8 +65,8 @@ jobs:
         run: |
           REPO_URL=ghcr.io/${{ github.repository }}
           SHA=${{ steps.commit.outputs.sha }}
-          LATEST="21.0.8.0.101-1-25.10.0.0"
-          JAVA_VERSIONS=("1.8.0-471-4-25.10.0.0" "11.0.28.0.101-1-25.10.0.0" "17.0.16.0.101-1-25.10.0.0" "$LATEST")
+          LATEST="21.0.9-10-25.12.0.0"
+          JAVA_VERSIONS=("1.8.0-472-3-25.12.0.0" "11.0.29-7-25.12.0.0" "17.0.17-10-25.12.0.0" "$LATEST")
 
           for VERSION in "${JAVA_VERSIONS[@]}"; do
             echo "Creating manifest for $VERSION"
