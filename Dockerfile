@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1.20
+# syntax=docker/dockerfile:1.27
 ARG JAVA_DIST_VERSION
 ARG ARCH_SUFFIX
 
